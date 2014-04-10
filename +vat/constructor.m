@@ -58,7 +58,10 @@ classdef constructor
         %% Video methods
         function obj = seconds2frames(obj, secondsPerVolume)
             % Derive obj framesPerVol given a video and a # sec per volume
-            obj.framesPerVol = int32(secondsPerVolume * obj.VideoObject.FrameRate);
+            obj.framesPerVol = round(secondsPerVolume * obj.VideoObject.FrameRate);
+            
+            % Call video2chunks by default
+            obj = obj.video2chunks;
         end
         
         function obj = openVideo(obj)
