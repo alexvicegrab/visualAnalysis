@@ -2,22 +2,27 @@ classdef constructor
     %constructor Constructs the vat (Visual Analysis Toolbox) object
     %
     %   Takes in a set of properties, two that are critical are:
-    %
     
     properties
-        dataFN                      % Location of image folder or video(s) to decompose
-        analysisDir                 % Location of saved analysis
-        framesPerVol = 1;           % Frames per volume in a video
-        averageDecomposed = true;   % Average frames in a video
-        parallelAnalysis = false;   % Parallelise analysis using matlab parfor
+        dataFN                          % Location of image folder or video(s) to decompose
+        analysisDir                     % Location of saved analysis
+        framesPerVol = 1;               % Frames per volume in a video
+        saveToDisk          = true;     % Do we save output to disk?
+        averageDecomposed   = true;     % Average frames in a video
+        parallelAnalysis    = false;    % Parallelise analysis using matlab parfor
+        verbose             = false;    % Verbose output or not?
+        
+        chunkCurrent = 0;               % Current chunk
+        % [How to make this mostly invisible, but without it needing a setter?]
     end
     
     properties (SetAccess='private')
         chunks = {};                % Store an array of video chunks
         VideoObject                 % VideoReader object
+        videoMat                    % Current video Matrix to be processed
     end
     
-    methods        
+    methods
         %% Constructor method
         function obj = constructor(varargin)
             % Construct our object
@@ -31,14 +36,6 @@ classdef constructor
                     error('Unrecognized fieldname %s',varargin{f});
                 end
             end
-            
-            % Set up parallel analysis
-            if obj.parallelAnalysis
-                try matlabpool close; catch; end
-                matlabpool open local
-                n = matlabpool('size');
-                fprintf('We have a matlabpool of %d nodes', n);
-            end
         end % constructor
         
         function obj = validate(obj)
@@ -49,10 +46,22 @@ classdef constructor
                 {'char'}, {'nonempty'}, 'analysisDir')
             validateattributes(obj.framesPerVol, ...
                 {'numeric'}, {'nonempty'}, 'framesPerVol')
+            validateattributes(obj.saveToDisk, ...
+                {'logical'}, {'nonempty'}, 'saveToDisk')
             validateattributes(obj.averageDecomposed, ...
                 {'logical'}, {'nonempty'}, 'averageDecomposed')
             validateattributes(obj.parallelAnalysis, ...
                 {'logical'}, {'nonempty'}, 'parallelAnalysis')
+            validateattributes(obj.verbose, ...
+                {'logical'}, {'nonempty'}, 'verbose')
+            
+            % Set up parallel analysis
+            if obj.parallelAnalysis
+                try matlabpool close; catch; end
+                matlabpool open local
+                n = matlabpool('size');
+                fprintf('We have a matlabpool of %d nodes', n);
+            end
         end
         
         %% Video methods
@@ -67,7 +76,7 @@ classdef constructor
         function obj = openVideo(obj)
             % Open video using VideoReader
             
-            obj = validate(obj);            
+            obj = validate(obj);
             obj.VideoObject = VideoReader(obj.dataFN);
             
             % Call video2chunks by default
@@ -81,9 +90,10 @@ classdef constructor
                 obj.framesPerVol);
         end
         
-        function videoMat = readVideo(obj, chunkNum)
-            videoMat = read(obj.VideoObject, ...
-                [obj.chunks{chunkNum}(1) obj.chunks{chunkNum}(end)]);
+        function obj = readVideo(obj)
+            obj.videoMat = read(obj.VideoObject, ...
+                [obj.chunks{obj.chunkCurrent}(1) ... % Start frame
+                obj.chunks{obj.chunkCurrent}(end)]); % End frame
         end
         
     end % methods

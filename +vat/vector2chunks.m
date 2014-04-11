@@ -1,15 +1,15 @@
-function chunks = vector2chunks(v, num)
-%% chunks = vector2chunks(v, num)
-% v = vector of numbers to be chunked
-% num = size of each chunk
+function chunks = vector2chunks(vector, chunkSize)
+%% chunks = vector2chunks(vector, chunkSize)
+% vector        = vector of numbers to be chunked
+% chunkSize     = size of each chunk
 
-w = 1:length(v);
+vectorInd = 1:length(vector);
 
-x = ceil(w/num);
+chunkNum = ceil(vectorInd/chunkSize);
 
-chunks = cell(1, x(end));
+chunks = cell(1, chunkNum(end));
 
-for a = 1:x(end)
-   chunks{a} = v(x == a);
+for a = 1:chunkNum(end)
+   chunks{a} = vector(chunkNum == a);
 end        
         
