@@ -12,7 +12,7 @@ if obj.saveToDisk
         varargin{v} = [];
     end
     
-    if ~exist(obj.analysisDir, 'dir'), mkdir(fullfile(obj.analysisDir, folderName)); end
+    if ~exist(fullfile(obj.analysisDir, folderName), 'dir'), mkdir(fullfile(obj.analysisDir, folderName)); end
     
     savePath = fullfile(obj.analysisDir, folderName, sprintf('chunk_%04d.mat', obj.chunkCurrent));
     if ~exist(savePath, 'file')

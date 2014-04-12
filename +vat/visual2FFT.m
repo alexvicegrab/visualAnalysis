@@ -15,7 +15,7 @@ for d = 1:size(obj.videoMat, 4);
         mean(obj.videoMat(:,:,:,d), 3) ) );
     
     % Magnitude
-    FFTmat.magnitude(:,:,d) = log(abs(tmp));
+    FFTmat.magnitude(:,:,d) = abs(tmp);
     % Phase
     FFTmat.phase(:,:,d)     = angle(tmp);
 end
