@@ -34,3 +34,5 @@ end
 
 %% Save to disk?
 vat.save(obj, 'videoLAB', LABmat);
+
+end

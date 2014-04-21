@@ -103,3 +103,33 @@ axis equal off
 title('Optic Flow')
 
 toc
+
+%% Do object detection
+
+CODbox = vat.visual2COD(vatObj);
+
+% Get video!
+videoPlayer  = vision.VideoPlayer(...
+    'Position', [300 300 size(vatObj.videoMat, 2)+30 size(vatObj.videoMat, 1) + 30]);
+
+% Movie...
+for d = 1:size(vatObj.videoMat, 4)
+    
+    
+    % For each frame, detect object
+    for f = 1:size(vatObj.videoMat, 4);
+        videoOut = vatObj.videoMat(:,:,:,f);
+        
+        for f = 1:size(vatObj.featuresCascadeObjectDetector, 1)
+            % Draw the returned bounding box around the detected face.
+            videoOut = insertObjectAnnotation(videoOut, ...
+                'rectangle', CODbox(f).(vatObj.featuresCascadeObjectDetector{d,1}), ...
+                vatObj.featuresCascadeObjectDetector{d,1}, ...
+                'Color', vatObj.featuresCascadeObjectDetector{d,2});
+        end
+        
+        % Display the annotated video frame using the video player object
+        step(videoPlayer, videoOut);
+        pause(0.01)
+    end
+end
