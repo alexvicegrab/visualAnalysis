@@ -1,9 +1,7 @@
-classdef CODmat < dynamicprops
-    %FFTMAT Handles data processed through Cascade Object Detector 
+classdef CODmat < vat.method & dynamicprops
+    %CODMAT Handles data processed through Cascade Object Detector 
     %
-    %   Properties (derived from Real and Imaginary FFT components of a matrix "X"):
-    % magnitude = sqrt(real(X).^2 + imag(X).^2)
-    % angle     = atan2(imag(X), real(X))
+    %   Properties are dynamic and depend on which detectors are requested
     
     
     properties
@@ -28,7 +26,6 @@ classdef CODmat < dynamicprops
         
         usedDetectors = {};
         
-        figHandle   % Figure handle for plotting
         videoPlayer % Handle for videoPlayer object, to ease plotting
     end
     
@@ -66,9 +63,6 @@ classdef CODmat < dynamicprops
                 end
             end
             
-        end % FFTmat
-        
-    end
-    
-end
-
+        end % CODmat
+    end % methods
+end % classdef

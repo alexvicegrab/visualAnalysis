@@ -1,4 +1,4 @@
-classdef OFmat
+classdef OFmat < vat.method
     %OFMAT Handles data converted into Optic Flow
     %
     %   Properties (derived from Real and Imaginary FFT components of a matrix "X"):
@@ -6,7 +6,6 @@ classdef OFmat
     
     properties (SetAccess='private')
         opticFlow
-        figHandle   % Figure handle for plotting
     end
     
     properties (Hidden)

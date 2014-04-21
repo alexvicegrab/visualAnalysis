@@ -1,4 +1,4 @@
-classdef FFTmat
+classdef FFTmat < vat.method
     %FFTMAT Handles data converted into Fast Fourier Transform
     %
     %   Properties (derived from Real and Imaginary FFT components of a matrix "X"):
@@ -8,7 +8,6 @@ classdef FFTmat
     properties (SetAccess='private')
         magnitude   
         phase
-        figHandle   % Figure handle for plotting
     end
     
     methods

@@ -1,5 +1,5 @@
 % VISUAL2OPTICFLOW Transform raw RGB data into LAB colourspace
-% OFmat = obj.visual2motion;
+% OFmat = obj.visual2opticFlow;
 function OFmat = visual2opticFlow(obj)
 
 if obj.verbose

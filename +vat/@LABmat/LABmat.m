@@ -1,4 +1,4 @@
-classdef LABmat
+classdef LABmat < vat.method
     %LABMAT Handles data converted into the LAB colourspace
     %
     %   Properties:
@@ -10,7 +10,6 @@ classdef LABmat
         L
         A
         B
-        figHandle       % Figure handle for plotting
     end
     
     properties (Hidden)
