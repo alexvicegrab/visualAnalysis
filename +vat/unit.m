@@ -6,6 +6,7 @@ function vatObj = unit(videoFileName)
 close all
 
 tic
+
 %% Create object and read video
 vatObj = vat.stream;
 %vatObj.saveToDisk = false;
@@ -30,106 +31,31 @@ BWmean = rgb2gray(RGBmean);
 %% Do FFT analysis
 FFTmat = vat.visual2FFT(vatObj);
 
-% Graph
-h = figure;
-colormap('gray')
-
-subplot(2,2,1)
-imagesc(BWmean);
-axis equal off
-title('Average image')
-
-subplot(2,2,2)
-imagesc(log(FFTmat.magnitude))
-axis equal off
-title('FFT magnitude (log)')
-
-subplot(2,2,3)
-imagesc(FFTmat.phase)
-axis equal off
-title('FFT phase')
-
-subplot(2,2,4)
-imagesc(real(ifft2(fftshift(FFTmat.magnitude.*(cos(FFTmat.phase) + 1i*sin(FFTmat.phase))))))
-axis equal off
-title('Average FFT magnitude and phase transformed back to image')
+plot(FFTmat, 1);
 
 toc
 
 %% Do LAB analysis
 LABmat = vat.visual2LAB(vatObj);
 
-% Graph
-h = figure;
-colormap('gray')
-
-subplot(2,2,1)
-imagesc(RGBmean);
-axis equal off
-title('Average image')
-
-subplot(2,2,2)
-imagesc(LABmat.L)
-axis equal off
-title('Luminance')
-
-subplot(2,2,3)
-imagesc(LABmat.A)
-axis equal off
-title('Red-Green channel (A)')
-
-subplot(2,2,4)
-imagesc(LABmat.B)
-axis equal off
-title('Yellow-Blue channel (B)')
+plot(LABmat, 1);
 
 toc
 
 %% Do Optic Flow analysis
 OFmat = vat.visual2opticFlow(vatObj);
 
-% Graph
-h = figure;
-colormap('gray')
-
-subplot(2,1,1)
-imagesc(BWmean);
-axis equal off
-title('Average image')
-
-subplot(2,1,2)
-imagesc(vat.average(OFmat, 3))
-axis equal off
-title('Optic Flow')
+plot(OFmat, 1);
 
 toc
 
 %% Do object detection
 
-CODbox = vat.visual2COD(vatObj);
-
-% Get video!
-videoPlayer  = vision.VideoPlayer(...
-    'Position', [300 300 size(vatObj.videoMat, 2)+30 size(vatObj.videoMat, 1) + 30]);
+CODmat = vat.visual2COD(vatObj);
 
 % Movie...
 for d = 1:size(vatObj.videoMat, 4)
-    
-    
-    % For each frame, detect object
-    for f = 1:size(vatObj.videoMat, 4);
-        videoOut = vatObj.videoMat(:,:,:,f);
-        
-        for f = 1:size(vatObj.featuresCascadeObjectDetector, 1)
-            % Draw the returned bounding box around the detected face.
-            videoOut = insertObjectAnnotation(videoOut, ...
-                'rectangle', CODbox(f).(vatObj.featuresCascadeObjectDetector{d,1}), ...
-                vatObj.featuresCascadeObjectDetector{d,1}, ...
-                'Color', vatObj.featuresCascadeObjectDetector{d,2});
-        end
-        
-        % Display the annotated video frame using the video player object
-        step(videoPlayer, videoOut);
-        pause(0.01)
-    end
+    plot(CODmat, vatObj, d);
 end
+
+toc

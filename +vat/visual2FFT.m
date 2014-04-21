@@ -6,30 +6,19 @@ if obj.verbose
     fprintf('\tFast Fourier Transform\n')
 end
 
-FFTmat = struct;
-FFTmat.magnitude = nan(size(obj.videoMat, 1), size(obj.videoMat, 2), size(obj.videoMat, 4));
-FFTmat.phase     = nan(size(obj.videoMat, 1), size(obj.videoMat, 2), size(obj.videoMat, 4));
+% Create FFTmat object
+FFTmat = vat.FFTmat(size(obj.videoMat, 1), size(obj.videoMat, 2), size(obj.videoMat, 4));
 
 for d = 1:size(obj.videoMat, 4);
-    % Do fourier transform and shift frequencies
-    tmp = fftshift(...
-        fft2(...
-        rgb2gray(obj.videoMat(:,:,:,d)) ) );
     
-    % Magnitude
-    FFTmat.magnitude(:,:,d) = abs(tmp);
-    % Phase
-    FFTmat.phase(:,:,d)     = angle(tmp);
+    % Do fourier transform
+    FFTmat = FFTmat.process(obj, d);
+    
 end
-
-% Avoid infinite values
-FFTmat.magnitude(~isfinite(FFTmat.magnitude))   = NaN;
-FFTmat.phase(~isfinite(FFTmat.phase))           = NaN;
 
 %% Average magnitude & phase (if necessary)
 if obj.averageDecomposed    
-    FFTmat.magnitude = vat.average(FFTmat.magnitude, 3);
-    FFTmat.phase     = circ_mean(FFTmat.phase, [], 3);
+    FFTmat = mean(FFTmat);
 end
 
 %% Save to disk?

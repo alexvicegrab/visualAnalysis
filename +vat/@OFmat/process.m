@@ -1,0 +1,23 @@
+function obj = process(obj, stream, frame)
+
+if frame == 1
+    % Get extraFrame in case that the current chunk is not the first...
+    if stream.chunkCurrent > 1
+        extraFrame = read(stream.VideoObject, ...
+            [stream.chunks{stream.chunkCurrent}(1) - 1 ... % Start frame
+            stream.chunks{stream.chunkCurrent}(1) - 1]); % End frame
+        
+        obj.opticFlow(:,:,frame) = step(obj.detectorOpticFlow, ...
+            double(rgb2gray(extraFrame)), ...
+            double(rgb2gray(stream.videoMat(:,:,:,frame))));
+    else
+        % Do nothing if the current chunk is the first...
+    end
+else
+    obj.opticFlow(:,:,frame) = step(obj.detectorOpticFlow, ...
+        double(rgb2gray(stream.videoMat(:,:,:,frame-1))), ...
+        double(rgb2gray(stream.videoMat(:,:,:,frame))));
+end
+
+end
+

@@ -1,0 +1,13 @@
+function obj = process(obj, stream, frame)
+
+% For each feature...
+for f = 1:length(obj.usedDetectors)
+    
+    obj.(obj.usedDetectors{f}).box{frame} = ...
+        step( ...
+        obj.(obj.usedDetectors{f}).detector, ...
+        stream.videoMat(:,:,:, frame));
+    
+end
+
+

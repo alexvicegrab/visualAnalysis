@@ -26,29 +26,7 @@ classdef stream
         videoMat                    % Current video Matrix to be processed
         chunkCurrent = 0;           % Current chunk
     end
-    
-    properties (Hidden)
-      detectorOpticFlow             % Optical flow object
-      detectorCascadeObjectDetector = ... % Object detector(s)
-          struct;
-      
-      featuresCascadeObjectDetector = ... % Features that can be detected by CascadeObjectDetector
-          {'FrontalFaceCART', [0 0 0]; ...
-          'FrontalFaceLBP', [0 0 0]; ...
-          'UpperBody', [255 255 255]; ...
-          'EyePairBig', [255 0 0]; ...
-          'EyePairSmall', [255 0 0]; ...
-          'LeftEye', [255 0 0]; ...
-          'RightEye', [255 0 0]; ...
-          'LeftEyeCART', [255 0 0]; ...
-          'RightEyeCART', [255 0 0]; ...
-          'ProfileFace', [0 0 0]; ...
-          'Mouth', [0 255 0]; ...
-          'Nose', [0 0 255]; ...
-          };
-      
-    end
-    
+        
     methods
         %% Constructor method
         function obj = stream(varargin)
@@ -64,6 +42,8 @@ classdef stream
                 end
             end
         end % stream
+        
     end % methods
+    
 end % classdef
 
