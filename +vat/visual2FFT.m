@@ -14,7 +14,7 @@ for d = 1:size(obj.videoMat, 4);
     % Do fourier transform and shift frequencies
     tmp = fftshift(...
         fft2(...
-        mean(obj.videoMat(:,:,:,d), 3) ) );
+        rgb2gray(obj.videoMat(:,:,:,d)) ) );
     
     % Magnitude
     FFTmat.magnitude(:,:,d) = abs(tmp);

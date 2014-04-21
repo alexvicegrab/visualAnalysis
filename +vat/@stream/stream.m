@@ -27,6 +27,10 @@ classdef stream
         chunkCurrent = 0;           % Current chunk
     end
     
+    properties (Hidden)
+      detectorOpticFlow           % Optical flow object
+   end
+    
     methods
         %% Constructor method
         function obj = stream(varargin)

@@ -19,9 +19,13 @@ vatObj = vatObj.openVideo;
 vatObj = vatObj.seconds2frames(1.8);
 
 % Set current chunk [Not fully elegant, might break parfor?]
-vatObj = vatObj.setChunk(1);
+vatObj = vatObj.setChunk(2);
 
 vatObj = vatObj.readVideo;
+
+% Average images
+RGBmean = uint8(mean(vatObj.videoMat, 4));
+BWmean = rgb2gray(RGBmean);
 
 %% Do FFT analysis
 FFTmat = vat.visual2FFT(vatObj);
@@ -31,7 +35,7 @@ h = figure;
 colormap('gray')
 
 subplot(2,2,1)
-imagesc(uint8(mean(mean(vatObj.videoMat, 4),3)));
+imagesc(BWmean);
 axis equal off
 title('Average image')
 
@@ -50,7 +54,9 @@ imagesc(real(ifft2(fftshift(FFTmat.magnitude.*(cos(FFTmat.phase) + 1i*sin(FFTmat
 axis equal off
 title('Average FFT magnitude and phase transformed back to image')
 
-%% DO LAB analysis
+toc
+
+%% Do LAB analysis
 LABmat = vat.visual2LAB(vatObj);
 
 % Graph
@@ -58,7 +64,7 @@ h = figure;
 colormap('gray')
 
 subplot(2,2,1)
-imagesc(uint8(mean(vatObj.videoMat, 4)));
+imagesc(RGBmean);
 axis equal off
 title('Average image')
 
@@ -76,5 +82,24 @@ subplot(2,2,4)
 imagesc(LABmat.B)
 axis equal off
 title('Yellow-Blue channel (B)')
+
+toc
+
+%% Do Optic Flow analysis
+OFmat = vat.visual2opticFlow(vatObj);
+
+% Graph
+h = figure;
+colormap('gray')
+
+subplot(2,1,1)
+imagesc(BWmean);
+axis equal off
+title('Average image')
+
+subplot(2,1,2)
+imagesc(vat.average(OFmat, 3))
+axis equal off
+title('Optic Flow')
 
 toc
