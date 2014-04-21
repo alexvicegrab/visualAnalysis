@@ -1,11 +1,13 @@
+% UNIT Basic unit-test for Visual Analysis Toolbox
+% vat.unit(videoFileName)
+%   videoFileName   = Filename of video to analyse
 function vatObj = unit(videoFileName)
-% Basic unit-test for Visual Analysis Toolbox
 
 close all
 
 tic
 %% Create object and read video
-vatObj = vat.constructor;
+vatObj = vat.stream;
 %vatObj.saveToDisk = false;
 
 [Vpth, Vfn] = fileparts(videoFileName);
@@ -17,7 +19,7 @@ vatObj = vatObj.openVideo;
 vatObj = vatObj.seconds2frames(1.8);
 
 % Set current chunk [Not fully elegant, might break parfor?]
-vatObj.chunkCurrent = 1;
+vatObj = vatObj.setChunk(1);
 
 vatObj = vatObj.readVideo;
 

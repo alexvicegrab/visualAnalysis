@@ -1,5 +1,8 @@
+% SAVE Gets input names and assigns variables to input names
+% obj = obj.save(folderName, varargin)
+%   folderName  = name of subjfolder into which to save results
+%   varargin    = variables to save
 function save(obj, folderName, varargin)
-% Save method that gets input names and assigns variables to input names
 
 %% Save to disk?
 if obj.saveToDisk

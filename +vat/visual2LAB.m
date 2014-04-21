@@ -1,5 +1,7 @@
+% VISUAL2LAB Transform raw RGB data into LAB colourspace
+% LABmat = obj.visual2LAB;
 function LABmat = visual2LAB(obj)
-% Transform raw RGB data into LAB colourspace
+
 if obj.verbose
     fprintf('\tLAB (Luminance, A [Red Green], B [Yellow Blue]) colourspace\n')
 end

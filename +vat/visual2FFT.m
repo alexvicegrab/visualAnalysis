@@ -1,5 +1,7 @@
+% VISUAL2FFT Do Fast Fourier Transform of raw data
+% FFTmat = obj.visual2FFT;
 function FFTmat = visual2FFT(obj)
-% Do Fast Fourier Transform of raw data
+
 if obj.verbose
     fprintf('\tFast Fourier Transform\n')
 end

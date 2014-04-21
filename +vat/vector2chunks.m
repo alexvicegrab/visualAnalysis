@@ -1,7 +1,9 @@
+% VECTOR2CHUNKS splits a vector into several chunks
+% chunks = vector2chunks(vector, chunkSize)
+%   vector        = vector of numbers to be chunked
+%   chunkSize     = size of each chunk
+
 function chunks = vector2chunks(vector, chunkSize)
-%% chunks = vector2chunks(vector, chunkSize)
-% vector        = vector of numbers to be chunked
-% chunkSize     = size of each chunk
 
 vectorInd = 1:length(vector);
 

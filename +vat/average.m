@@ -1,5 +1,8 @@
+% AVERAGE Mean value (ignores NaN values)
+% average = average(mat, dim)
+%   mat   = matrix to average
+%   dim   = dimension along which to average [default = 1]
 function average = average(mat, dim)
-%AVERAGE Mean value (ignores NaN values)
 
 if nargin < 2
     dim = 1;
