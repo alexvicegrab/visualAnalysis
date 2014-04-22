@@ -1,8 +1,6 @@
 function FFTmat = process(FFTmat, stream)
 
-if stream.verbose
-    fprintf('\tFast Fourier Transform\n')
-end
+FFTmat.console(stream);
 
 for f = 1:size(stream.videoMat, 4);
     % Do fourier transform and shift frequencies

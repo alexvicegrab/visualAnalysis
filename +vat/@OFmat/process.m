@@ -1,8 +1,6 @@
 function OFmat = process(OFmat, stream)
 
-if stream.verbose
-    fprintf('\tDetecting Optic Flow in chunk\n')
-end
+OFmat.console(stream);
 
 % For each frame detect object
 for f = 1:size(stream.videoMat, 4);
@@ -27,7 +25,7 @@ for f = 1:size(stream.videoMat, 4);
 end
 
 %% Average magnitude & phase (if necessary)
-if stream.averageDecomposed  
+if stream.averageDecomposed
     OFmat = mean(OFmat);
 end
 

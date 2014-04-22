@@ -9,16 +9,17 @@ classdef OFmat < vat.method
     end
     
     properties (Hidden)
-      detectorOpticFlow             % Optical flow object
+        detectorOpticFlow             % Optical flow object
     end
     
     methods
         %% Constructor method
         function obj = OFmat(stream)
+            obj.description = 'Optic Flow';
             
             % Set up detector
             obj.detectorOpticFlow = vision.OpticalFlow( ...
-        'ReferenceFrameSource','Input port');
+                'ReferenceFrameSource','Input port');
             
             % Set up empty matrices...
             obj.opticFlow = nan(stream.width, stream.height, stream.frames);

@@ -1,8 +1,6 @@
 function CODmat = process(CODmat, stream)
 
-if stream.verbose
-    fprintf('\tCascade Object Detector\n')
-end
+CODmat.console(stream);
 
 % For each frame, detect objects
 for f = 1:size(stream.videoMat, 4);

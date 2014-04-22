@@ -1,8 +1,6 @@
 function audioMat = process(audioMat, stream)
 
-if stream.verbose
-    fprintf('\tFast Fourier Transform [audio]\n')
-end
+audioMat.console(stream);
 
 % Split audio into left and right stream
 audioMat.rawL    = stream.audioMat(:,1);
@@ -21,7 +19,7 @@ audioMat.fftR    = fft(audioMat.rawR, audioMat.NFFT) ...
 
 %% Average magnitude & phase (if necessary)
 %{
-if stream.averageDecomposed    
+if stream.averageDecomposed
     audioMat = mean(audioMat);
 end
 %}

@@ -1,4 +1,4 @@
-classdef audioMat < vat.method & dynamicprops
+classdef audioMat < vat.method
     %AUDIOMAT Handles data processed for audio
     %
     %   Properties:
@@ -25,6 +25,7 @@ classdef audioMat < vat.method & dynamicprops
     methods
         %% Constructor method
         function obj = audioMat(stream, filterName)
+            obj.description = 'Fast Fourier Transform (audio)';
             
             if nargin > 1
                 obj.filter = filterName;

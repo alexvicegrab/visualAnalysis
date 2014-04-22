@@ -1,8 +1,6 @@
 function LABmat = process(LABmat, stream)
 
-if stream.verbose
-    fprintf('\tLAB (Luminance, A [Red Green], B [Yellow Blue]) colourspace\n')
-end
+LABmat.console(stream);
 
 for f = 1:size(stream.videoMat, 4);
     % Do colour transform
@@ -15,7 +13,7 @@ for f = 1:size(stream.videoMat, 4);
 end
 
 %% Average magnitude & phase (if necessary)
-if stream.averageDecomposed  
+if stream.averageDecomposed
     LABmat = mean(LABmat);
 end
 

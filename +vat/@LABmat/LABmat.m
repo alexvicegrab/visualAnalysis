@@ -19,6 +19,7 @@ classdef LABmat < vat.method
     methods
         %% Constructor method
         function obj = LABmat(stream)
+            obj.description = 'LAB (Luminance, A [Red Green], B [Yellow Blue]) colourspace';
             
             % Set up the matrices...
             obj.L = nan(stream.width, stream.height, stream.frames);

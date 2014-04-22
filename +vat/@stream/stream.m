@@ -5,7 +5,7 @@ classdef stream
     % dataFN                Location of image folder or video(s) to decompose
     % analysisDir           Location of saved analysis
     % framesPerChunk        Frames per chunk in video [default: 1]
-    % samplesPerChunk       Samples per chunk in audio 
+    % samplesPerChunk       Samples per chunk in audio
     % saveToDisk            Do we save output to disk?
     % averageDecomposed     Average frames in a video
     % parallelAnalysis      Parallelise analysis using matlab parfor
@@ -18,7 +18,7 @@ classdef stream
         dataFN
         analysisDir
         framesPerChunk      = 1;
-        samplesPerChunk     
+        samplesPerChunk
         saveToDisk          = true;
         averageDecomposed   = true;
         parallelAnalysis    = false;
@@ -27,7 +27,7 @@ classdef stream
     
     properties (SetAccess='private')
         secondsPerChunk
-                
+        
         chunksVideo = {};           % Store an array of video chunks
         chunksAudio = {};           % Store an array of audio chunks
         AudioInfo                   % AudioInfo structure
@@ -40,7 +40,7 @@ classdef stream
         height                      % Height of video stream
         frames                      % Frames of video stream
     end
-        
+    
     methods
         %% Constructor method
         function obj = stream(varargin)

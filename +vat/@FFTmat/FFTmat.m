@@ -6,13 +6,14 @@ classdef FFTmat < vat.method
     % angle     = atan2(imag(X), real(X))
     
     properties (SetAccess='private')
-        magnitude   
+        magnitude
         phase
     end
     
     methods
         %% Constructor method
         function obj = FFTmat(stream)
+            obj.description = 'Fast Fourier Transform';
             
             % Set up empty matrices...
             obj.magnitude = nan(stream.width, stream.height, stream.frames);

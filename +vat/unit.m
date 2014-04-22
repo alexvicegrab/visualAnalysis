@@ -13,11 +13,12 @@ vatObj = vat.stream;
 
 [Vpth, Vfn] = fileparts(videoFileName);
 
+vatObj.verbose = true;
 vatObj.dataFN = videoFileName;
 vatObj.analysisDir = fullfile(Vpth, Vfn);
 vatObj = vatObj.setSecondsPerChunk(1.8);
 % Set current chunk [Not fully elegant, might break parfor?]
-vatObj = vatObj.setChunk(49);
+vatObj = vatObj.setChunk(51);
 
 % Get data
 vatObj = vatObj.openVideo;
