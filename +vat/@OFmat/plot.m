@@ -8,7 +8,7 @@ obj = plot@vat.method(obj);
 colormap('gray')
 
 imagesc( obj.opticFlow(:,:,frame) )
-axis equal off
+axis equal tight off
 title('Optic Flow')
 
 end
