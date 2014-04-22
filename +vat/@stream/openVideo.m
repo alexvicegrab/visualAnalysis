@@ -3,6 +3,7 @@
 function obj = openVideo(obj)
 
 obj = validate(obj);
+
 obj.VideoObject = VideoReader(obj.dataFN);
 
 % Call video2chunks by default

@@ -10,4 +10,4 @@ for f = 1:length(obj.usedDetectors)
     
 end
 
-
+end

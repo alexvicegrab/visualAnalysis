@@ -7,27 +7,20 @@ classdef method < handle
         figHandle   % Figure handle for plotting
     end
     
-    methods (Static)
-        %% Constructor method
-        function mean(~)
-            error('The mean method has not been implemented yet')
-        end
+    methods (Abstract = true)
+        % Methods that should be implemented by the sub-classes
         
-        function plot(~)
-            error('The plot method has not been implemented yet')
-        end
+        process(obj)
         
-        function process(~)
-            error('The process method has not been implemented yet')
-        end
+        plot(obj)
         
-        function aggregate(~)
-            error('The aggregate method has not been implemented yet')
-        end
+        %{
+        mean(obj)
         
-        function similarity(~)
-            error('The similarity method has not been implemented yet')
-        end
+        aggregate(obj)
+        
+        similarity(obj)
+        %}
         
     end
     

@@ -2,8 +2,12 @@
 % obj = obj.video2chunks;
 function obj = video2chunks(obj)
 
-obj.chunks = vat.vector2chunks(...
-    1:obj.VideoObject.NumberOfFrames, ...
+if ~isempty(obj.secondsPerChunk)
+    obj = obj.seconds2frames;
+end
+
+obj.chunksVideo = vat.vector2chunks(...
+    obj.VideoObject.NumberOfFrames, ...
     obj.framesPerChunk);
 
 end

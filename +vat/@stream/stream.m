@@ -4,16 +4,21 @@ classdef stream
     %   Takes in a set of properties, user changeable ones include:
     % dataFN                Location of image folder or video(s) to decompose
     % analysisDir           Location of saved analysis
-    % framesPerChunk        Frames per chunk in a video [default: 1]
+    % framesPerChunk        Frames per chunk in video [default: 1]
+    % samplesPerChunk       Samples per chunk in audio 
     % saveToDisk            Do we save output to disk?
     % averageDecomposed     Average frames in a video
     % parallelAnalysis      Parallelise analysis using matlab parfor
     % verbose               Verbose output or not?
+    %
+    % secondsPerChunk       Seconds per chunk in video-audio
+    %                       [only settable though setSecondsPerChunk]
     
     properties
         dataFN
         analysisDir
         framesPerChunk      = 1;
+        samplesPerChunk     
         saveToDisk          = true;
         averageDecomposed   = true;
         parallelAnalysis    = false;
@@ -21,9 +26,14 @@ classdef stream
     end
     
     properties (SetAccess='private')
-        chunks = {};                % Store an array of video chunks
+        secondsPerChunk
+                
+        chunksVideo = {};           % Store an array of video chunks
+        chunksAudio = {};           % Store an array of audio chunks
+        AudioInfo                   % AudioInfo structure
         VideoObject                 % VideoReader object
-        videoMat                    % Current video Matrix to be processed
+        videoMat                    % Current video matrix to be processed
+        audioMat                    % Current audio vector to be processed
         chunkCurrent = 0;           % Current chunk
     end
         

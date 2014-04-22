@@ -1,6 +1,6 @@
-% VISUAL2OPTICFLOW Transform raw RGB data into LAB colourspace
-% OFmat = obj.visual2opticFlow;
-function OFmat = visual2opticFlow(obj)
+% VISUAL2OF Transform raw RGB data into LAB colourspace
+% OFmat = obj.visual2OF;
+function OFmat = visual2OF(obj)
 
 if obj.verbose
     fprintf('\tDetecting Optic Flow in chunk\n')

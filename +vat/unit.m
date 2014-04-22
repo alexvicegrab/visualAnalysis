@@ -15,18 +15,27 @@ vatObj = vat.stream;
 
 vatObj.dataFN = videoFileName;
 vatObj.analysisDir = fullfile(Vpth, Vfn);
-
-vatObj = vatObj.openVideo;
-vatObj = vatObj.seconds2frames(1.8);
-
+vatObj = vatObj.setSecondsPerChunk(1.8);
 % Set current chunk [Not fully elegant, might break parfor?]
 vatObj = vatObj.setChunk(2);
 
+% Get data
+vatObj = vatObj.openVideo;
+vatObj = vatObj.openAudio;
+
 vatObj = vatObj.readVideo;
+vatObj = vatObj.readAudio;
 
 % Average images
 RGBmean = uint8(mean(vatObj.videoMat, 4));
 BWmean = rgb2gray(RGBmean);
+
+%% Do audio analysis
+audioMat = vat.audio2FFT(vatObj);
+
+plot(audioMat);
+
+toc
 
 %% Do FFT analysis
 FFTmat = vat.visual2FFT(vatObj);
@@ -43,7 +52,7 @@ plot(LABmat, 1);
 toc
 
 %% Do Optic Flow analysis
-OFmat = vat.visual2opticFlow(vatObj);
+OFmat = vat.visual2OF(vatObj);
 
 plot(OFmat, 1);
 
