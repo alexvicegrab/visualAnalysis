@@ -2,11 +2,7 @@ function obj = plot(obj)
 % PLOT Display graph of audio plots
 % obj = plot(obj)
 
-if isempty(obj.figHandle)
-    obj.figHandle = figure;
-else
-    figure(obj.figHandle);
-end
+obj = plot@vat.method(obj);
 
 subplot(4,1,1)
 plot(obj.rawL)

@@ -7,12 +7,19 @@ classdef method < handle
         figHandle   % Figure handle for plotting
     end
     
+    methods
+       function obj = plot(obj)
+            if isempty(obj.figHandle)
+                obj.figHandle = figure;
+            else
+                figure(obj.figHandle);
+            end
+        end 
+    end    
+    
     methods (Abstract = true)
-        % Methods that should be implemented by the sub-classes
-        
+        % Methods that should be implemented by the sub-classes        
         process(obj)
-        
-        plot(obj)
         
         %{
         mean(obj)

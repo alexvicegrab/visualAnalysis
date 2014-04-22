@@ -3,11 +3,7 @@ function obj = plot(obj, frame)
 % obj = plot(obj, frame)
 %   frame   = which frame of the FFTmat object do we wish to display?
 
-if isempty(obj.figHandle)
-    obj.figHandle = figure;
-else
-    figure(obj.figHandle);
-end
+obj = plot@vat.method(obj);
 
 colormap('gray')
 
