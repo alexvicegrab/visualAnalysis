@@ -1,18 +1,32 @@
-function obj = process(obj, stream)
+function audioMat = process(audioMat, stream)
+
+if stream.verbose
+    fprintf('\tFast Fourier Transform [audio]\n')
+end
 
 % Split audio into left and right stream
-obj.rawL    = stream.audioMat(:,1);
-obj.rawR    = stream.audioMat(:,2);
+audioMat.rawL    = stream.audioMat(:,1);
+audioMat.rawR    = stream.audioMat(:,2);
 
-if ~isempty(obj.filter)
-    obj.rawL = filter(obj.filter, obj.rawL);
-    obj.rawR = filter(obj.filter, obj.rawR);
+if ~isempty(audioMat.filter)
+    audioMat.rawL = filter(audioMat.filter, audioMat.rawL);
+    audioMat.rawR = filter(audioMat.filter, audioMat.rawR);
 end
 
 % For each frame, detect object
-obj.fftL    = fft(obj.rawL, obj.NFFT) ...
+audioMat.fftL    = fft(audioMat.rawL, audioMat.NFFT) ...
     ./ double(stream.samplesPerChunk);
-obj.fftR    = fft(obj.rawR, obj.NFFT) ...
+audioMat.fftR    = fft(audioMat.rawR, audioMat.NFFT) ...
     ./ double(stream.samplesPerChunk);
+
+%% Average magnitude & phase (if necessary)
+%{
+if stream.averageDecomposed    
+    audioMat = mean(audioMat);
+end
+%}
+
+%% Save to disk?
+vat.save(stream, 'audioMat', audioMat);
 
 end

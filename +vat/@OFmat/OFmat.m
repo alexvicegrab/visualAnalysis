@@ -14,14 +14,14 @@ classdef OFmat < vat.method
     
     methods
         %% Constructor method
-        function obj = OFmat(width, height, time)
+        function obj = OFmat(stream)
             
             % Set up detector
             obj.detectorOpticFlow = vision.OpticalFlow( ...
         'ReferenceFrameSource','Input port');
             
             % Set up empty matrices...
-            obj.opticFlow = nan(width, height, time);
+            obj.opticFlow = nan(stream.width, stream.height, stream.frames);
             
         end % OFmat
         

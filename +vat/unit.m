@@ -17,7 +17,7 @@ vatObj.dataFN = videoFileName;
 vatObj.analysisDir = fullfile(Vpth, Vfn);
 vatObj = vatObj.setSecondsPerChunk(1.8);
 % Set current chunk [Not fully elegant, might break parfor?]
-vatObj = vatObj.setChunk(2);
+vatObj = vatObj.setChunk(49);
 
 % Get data
 vatObj = vatObj.openVideo;
@@ -31,36 +31,40 @@ RGBmean = uint8(mean(vatObj.videoMat, 4));
 BWmean = rgb2gray(RGBmean);
 
 %% Do audio analysis
-audioMat = vat.audio2FFT(vatObj);
+audioMat = vat.audioMat(vatObj);
+audioMat = audioMat.process(vatObj);
 
 plot(audioMat);
 
 toc
 
 %% Do FFT analysis
-FFTmat = vat.visual2FFT(vatObj);
+FFTmat = vat.FFTmat(vatObj);
+FFTmat = FFTmat.process(vatObj);
 
 plot(FFTmat, 1);
 
 toc
 
 %% Do LAB analysis
-LABmat = vat.visual2LAB(vatObj);
+LABmat = vat.LABmat(vatObj);
+LABmat = LABmat.process(vatObj);
 
 plot(LABmat, 1);
 
 toc
 
 %% Do Optic Flow analysis
-OFmat = vat.visual2OF(vatObj);
+OFmat = vat.OFmat(vatObj);
+OFmat = OFmat.process(vatObj);
 
 plot(OFmat, 1);
 
 toc
 
 %% Do object detection
-
-CODmat = vat.visual2COD(vatObj);
+CODmat = vat.CODmat;
+CODmat = CODmat.process(vatObj);
 
 % Movie...
 for d = 1:size(vatObj.videoMat, 4)

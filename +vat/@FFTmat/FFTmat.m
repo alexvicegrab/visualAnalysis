@@ -12,11 +12,11 @@ classdef FFTmat < vat.method
     
     methods
         %% Constructor method
-        function obj = FFTmat(width, height, time)
+        function obj = FFTmat(stream)
             
             % Set up empty matrices...
-            obj.magnitude = nan(width, height, time);
-            obj.phase = nan(width, height, time);
+            obj.magnitude = nan(stream.width, stream.height, stream.frames);
+            obj.phase = nan(stream.width, stream.height, stream.frames);
             
         end % FFTmat
         

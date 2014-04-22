@@ -10,7 +10,7 @@ block = 1 : samplesPerChunk : sampleNumber;
 chunks = cell(1,length(block));
 
 for c = 1:length(chunks)
-   chunks{c} = int32([block(c) (block(c) + samplesPerChunk - 1)]); 
+   chunks{c} = round([block(c) (block(c) + samplesPerChunk - 1)]); 
 end
 
 % Final chunk is the final sample

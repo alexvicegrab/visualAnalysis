@@ -18,12 +18,12 @@ classdef LABmat < vat.method
     
     methods
         %% Constructor method
-        function obj = LABmat(width, height, time)
+        function obj = LABmat(stream)
             
             % Set up the matrices...
-            obj.L = nan(width, height, time);
-            obj.A = nan(width, height, time);
-            obj.B = nan(width, height, time);
+            obj.L = nan(stream.width, stream.height, stream.frames);
+            obj.A = nan(stream.width, stream.height, stream.frames);
+            obj.B = nan(stream.width, stream.height, stream.frames);
             
             % Make colour transform
             obj.colorTransform = makecform('srgb2lab');

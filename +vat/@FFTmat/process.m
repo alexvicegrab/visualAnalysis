@@ -1,20 +1,35 @@
-function obj = process(obj, stream, frame)
+function FFTmat = process(FFTmat, stream)
 
-% Do fourier transform and shift frequencies
-tmp = fftshift(...
-    fft2(...
-    rgb2gray(stream.videoMat(:,:,:,frame)) ) );
+if stream.verbose
+    fprintf('\tFast Fourier Transform\n')
+end
 
-% Set up the matrices...
-magnitude   = abs(tmp);
-phase       = angle(tmp);
+for f = 1:size(stream.videoMat, 4);
+    % Do fourier transform and shift frequencies
+    tmp = fftshift(...
+        fft2(...
+        rgb2gray(stream.videoMat(:,:,:,f)) ) );
+    
+    % Set up the matrices...
+    magnitude   = abs(tmp);
+    phase       = angle(tmp);
+    
+    % Avoid infinite values
+    magnitude(~isfinite(magnitude))   = NaN;
+    phase(~isfinite(phase))           = NaN;
+    
+    FFTmat.magnitude(:,:,f)    = magnitude;
+    FFTmat.phase(:,:,f)        = phase;
+    
+end
 
-% Avoid infinite values
-magnitude(~isfinite(magnitude))   = NaN;
-phase(~isfinite(phase))           = NaN;
+%% Average magnitude & phase (if necessary)
+if stream.averageDecomposed
+    FFTmat = mean(FFTmat);
+end
 
-obj.magnitude(:,:,frame)    = magnitude;
-obj.phase(:,:,frame)        = phase;
+%% Save to disk?
+vat.save(stream, 'videoFFT', FFTmat);
 
 end
 

@@ -35,6 +35,10 @@ classdef stream
         videoMat                    % Current video matrix to be processed
         audioMat                    % Current audio vector to be processed
         chunkCurrent = 0;           % Current chunk
+        
+        width                       % Width of video stream
+        height                      % Height of video stream
+        frames                      % Frames of video stream
     end
         
     methods
