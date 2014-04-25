@@ -3,28 +3,35 @@ visualAnalysis
 
 Scientific analysis of visual data using OOP MATLAB
 
-
 Contents
-========
+--------
 
 Contains the package +vat (visual analysis toolbox).
 
 Requires
-========
+--------
 
-=Circular Statistics Toolbox for Matlab=
->> By Philipp Berens, 2009
->> http://www.mathworks.com/matlabcentral/fileexchange/10676-circular-statistics-toolbox--directional-statistics-
-    * Required for visual2FFT method
+#### Circular Statistics Toolbox for Matlab
+
+Author: Philipp Berens, 2009
+
+http://www.mathworks.com/matlabcentral/fileexchange/10676-circular-statistics-toolbox--directional-statistics-
+
+* Required for visual2FFT method
 
 
-=Matlab Image Processing Toolbox=
-    * Required for visual2LAB method
+#### Matlab Image Processing Toolbox
 
-=Matlab Computer Vision System Toolbox=
-    * Required for visual2opticFlow method
+* Required for visual2LAB method
 
-=MMread toolbox=
->> Copyright 2008 Micah Richert
->> http://www.mathworks.co.uk/matlabcentral/fileexchange/8028-mmread
-    * Not required, but makes reading video files faster and more robust
+#### Matlab Computer Vision System Toolbox
+
+* Required for visual2opticFlow method
+
+#### MMread toolbox
+
+Author Micah Richert 2008
+
+http://www.mathworks.co.uk/matlabcentral/fileexchange/8028-mmread
+
+* Not required, but makes reading video files faster and more robust
